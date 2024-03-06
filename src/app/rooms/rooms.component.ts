@@ -1,13 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Room, RoomList} from "./rooms";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    NgClass,
+    NgStyle
   ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss'
