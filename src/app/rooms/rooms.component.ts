@@ -1,6 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Room, RoomList} from "./rooms";
-import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {
+  CurrencyPipe,
+  DatePipe, DecimalPipe,
+  JsonPipe,
+  LowerCasePipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgStyle,
+  PercentPipe, SlicePipe
+} from "@angular/common";
 
 @Component({
   selector: 'app-rooms',
@@ -9,7 +19,14 @@ import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
     NgIf,
     NgForOf,
     NgClass,
-    NgStyle
+    NgStyle,
+    DatePipe,
+    LowerCasePipe,
+    CurrencyPipe,
+    PercentPipe,
+    JsonPipe,
+    SlicePipe,
+    DecimalPipe
   ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss'
@@ -37,6 +54,7 @@ export class RoomsComponent implements OnInit {
       photos: 'https://unsplash.com/photos/black-laptop-computer-on-table-0IwypLLbHiA',
       checkinTime: new Date('11-Nov-2025'),
       checkoutTime:new Date('12-Nov-2025'),
+      rating: 4.5,
     },
     {
       roomNumber: 2,
@@ -46,15 +64,17 @@ export class RoomsComponent implements OnInit {
       photos: 'https://unsplash.com/photos/black-laptop-computer-on-table-0IwypLLbHiA',
       checkinTime: new Date('11-Nov-2025'),
       checkoutTime:new Date('12-Nov-2025'),
+      rating: 3.4,
     },
     {
       roomNumber:3,
-      roomType: 'Deluxe Room',
+      roomType: 'Private Suite',
       amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
       price: 15000,
       photos: 'https://unsplash.com/photos/black-laptop-computer-on-table-0IwypLLbHiA',
       checkinTime: new Date('11-Nov-2025'),
       checkoutTime:new Date('12-Nov-2025'),
+      rating: 2.6,
     },
 ];
 
