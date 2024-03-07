@@ -1,4 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  DoCheck, OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {Room, RoomList} from "./rooms";
 import {
   CurrencyPipe,
@@ -11,6 +20,7 @@ import {
   NgStyle,
   PercentPipe, SlicePipe} from "@angular/common";
 import {RoomsListComponent} from "../rooms-list/rooms-list.component";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
   selector: 'app-rooms',
@@ -27,12 +37,13 @@ import {RoomsListComponent} from "../rooms-list/rooms-list.component";
     JsonPipe,
     SlicePipe,
     DecimalPipe,
-    RoomsListComponent
+    RoomsListComponent,
+    HeaderComponent
   ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss'
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit{
 
   hotelName = 'Hilton Hotel';
 
@@ -48,12 +59,37 @@ export class RoomsComponent implements OnInit {
     bookedRooms: 5
   };
 
+  title = 'Room List';
+
   roomList: RoomList[] = [];
+
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
+
+  @ViewChildren(HeaderComponent) headerChildrenComponent!: QueryList<HeaderComponent>;
 
   constructor() {
   }
 
+  ngAfterViewChecked(): void {
+
+    }
+
+  ngAfterViewInit(): void {
+        // console.log(this.headerComponent);
+    this.headerComponent.title = "Room View";
+
+    this.headerChildrenComponent.last.title = 'Last Title';
+    // this.headerComponent.get()
+    }
+
+  ngDoCheck(): void {
+        console.log('on changes is called');
+    }
+
   ngOnInit() {
+
+    // console.log(this.headerComponent);
+
     this.roomList = [
       {
         roomNumber: 1,
@@ -90,6 +126,7 @@ export class RoomsComponent implements OnInit {
 
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = "Rooms List";
   }
 
   selectRoom(room: RoomList) {
@@ -108,6 +145,9 @@ export class RoomsComponent implements OnInit {
       rating: 4.5,
     };
 
-    this.roomList.push(room);
+    // this.roomList.push(room);
+    this.roomList = [...this.roomList,room];
   }
+
+
 }
