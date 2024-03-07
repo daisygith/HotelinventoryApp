@@ -4,13 +4,17 @@
 //@import 'bootstrap/scss/bootstrap';
 
 .table .even{
-  background-color: steelblue;
   color: white;
-};
+  td {
+    background-color: steelblue;
+  }
+}
 
 .table .odd{
-  background-color: tomato;
   color: white;
-};
+  td {
+    background-color: tomato;
+  }
+}
 
 
