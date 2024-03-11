@@ -4,7 +4,7 @@ import {
   Component,
   DoCheck, OnDestroy,
   OnInit,
-  QueryList,
+  QueryList, SkipSelf,
   ViewChild,
   ViewChildren
 } from '@angular/core';
@@ -19,8 +19,9 @@ import {
   NgIf,
   NgStyle,
   PercentPipe, SlicePipe} from "@angular/common";
-import {RoomsListComponent} from "../rooms-list/rooms-list.component";
+import {RoomsListComponent} from "./rooms-list/rooms-list.component";
 import {HeaderComponent} from "../header/header.component";
+import {RoomsService} from "./services/rooms.service";
 
 @Component({
   selector: 'app-rooms',
@@ -67,8 +68,16 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit{
 
   @ViewChildren(HeaderComponent) headerChildrenComponent!: QueryList<HeaderComponent>;
 
-  constructor() {
+  // roomService = new RoomsService();
+
+  constructor(@SkipSelf() private roomsService: RoomsService) {
   }
+  ngOnInit() {
+    // console.log(this.headerComponent);
+    this.roomList = this.roomsService.getRooms();
+
+  }
+
 
   ngAfterViewChecked(): void {
 
@@ -86,43 +95,6 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit{
         console.log('on changes is called');
     }
 
-  ngOnInit() {
-
-    // console.log(this.headerComponent);
-
-    this.roomList = [
-      {
-        roomNumber: 1,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-        price: 500,
-        photos: 'https://unsplash.com/photos/black-laptop-computer-on-table-0IwypLLbHiA',
-        checkinTime: new Date('11-Nov-2025'),
-        checkoutTime: new Date('12-Nov-2025'),
-        rating: 4.5,
-      },
-      {
-        roomNumber: 2,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-        price: 1000,
-        photos: 'https://unsplash.com/photos/black-laptop-computer-on-table-0IwypLLbHiA',
-        checkinTime: new Date('11-Nov-2025'),
-        checkoutTime: new Date('12-Nov-2025'),
-        rating: 3.4,
-      },
-      {
-        roomNumber: 3,
-        roomType: 'Private Suite',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-        price: 15000,
-        photos: 'https://unsplash.com/photos/black-laptop-computer-on-table-0IwypLLbHiA',
-        checkinTime: new Date('11-Nov-2025'),
-        checkoutTime: new Date('12-Nov-2025'),
-        rating: 2.6,
-      },
-    ];
-  }
 
   toggle() {
     this.hideRooms = !this.hideRooms;
@@ -135,7 +107,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit{
 
   addRoom() {
     const room: RoomList = {
-      roomNumber:4,
+      roomNumber: '4',
       roomType: 'Deluxe Room',
       amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
       price: 500,
