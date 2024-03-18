@@ -17,7 +17,9 @@ import {
   PercentPipe,
   SlicePipe,
 } from "@angular/common";
-import {RoomList} from "../rooms/rooms";
+import {RoomList} from "../rooms";
+import {RouterLink} from "@angular/router";
+import {FilterPipe} from "../filter.pipe";
 
 
 @Component({
@@ -31,11 +33,13 @@ import {RoomList} from "../rooms/rooms";
     LowerCasePipe,
     DatePipe,
     DecimalPipe,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    FilterPipe,
   ],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoomsListComponent implements OnInit, OnChanges, OnDestroy{
 
